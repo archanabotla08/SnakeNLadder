@@ -6,7 +6,7 @@ public class SnakeNLadder{
 	final static int WINPOINT = 100;
 
 	public static int position = 0;
-
+	public static int calculatedPosition = 0;
 	int player1 = 0;
 
 	public static int rolldice(int number) {
@@ -25,28 +25,43 @@ public class SnakeNLadder{
                         switch (random) {
                         case NOPLAY:
                                 System.out.println("NOPLAY");
-                                System.out.println("Position of player : " + position);
+                                System.out.println("Position of player : " + calculatedPosition);
                                 System.out.println("----------------------");
                                 break;
                         case LADDER:
                                 System.out.println("############## Climb the LADDER ############");
-                                position+=rolldice;
-                                System.out.println("Position of the  Player = " + position);
+                                calculatedPosition = calculatePlayerLadderPosition(calculatedPosition,rolldice);
+                                System.out.println("Position of the  Player = " + calculatedPosition);
                                 System.out.println("----------------------");
                                 break;
                         case SNAKE:
                                 System.out.println("~~~~~~~~~~~~~~~~ Bites the SNAKE ~~~~~~~~~~~~");
-                                position-=rolldice;
-                                System.out.println("Position of the  Player = " + position);
+                                calculatedPosition = calculatePlayerSnakeBitePosition(calculatedPosition,rolldice);
+                                System.out.println("Position of the  Player = " + calculatedPosition);
                                 System.out.println("----------------------");
                                 break;
                         default:
                                 break;
                         }
-			if(position < 0 ){
-                        	position = 0;
-                        }
-                   }while(position != WINPOINT);
+                   }while(calculatedPosition != WINPOINT);
+        }
+
+	 public static int calculatePlayerLadderPosition(int position,int dicevalue) {
+                position = position + dicevalue;
+                if(position > 100) {
+                        position = position - dicevalue;
+                }
+                else if(position == 100){
+                        return position;
+                }
+                return position;
+        }
+        public static int calculatePlayerSnakeBitePosition(int position,int dicevalue) {
+                position = position - dicevalue;
+                if(position < 0) {
+                        position = 0;
+                }
+                return position;
         }
 
 	public static void main(String[] args){
