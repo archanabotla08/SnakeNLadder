@@ -3,6 +3,7 @@ public class SnakeNLadder{
 	public static final int NOPLAY = 1;
         public static final int LADDER = 2;
         public static final int SNAKE = 3;
+	final static int WINPOINT = 100;
 
 	public static int position = 0;
 
@@ -15,7 +16,8 @@ public class SnakeNLadder{
                 return (n==0?1:n);
         }
 	public static void startGame() {
-                        int random = rolldice(4);
+                    do{
+		    	int random = rolldice(4);
                         int rolldice = rolldice(7);
                         System.out.println("---------------------");
                         System.out.println("Roll Dice Value : " + rolldice);
@@ -41,10 +43,18 @@ public class SnakeNLadder{
                         default:
                                 break;
                         }
+			if(position < 0 ){
+                        	position = 0;
+                        }
+                   }while(position != WINPOINT);
         }
 
 	public static void main(String[] args){
+		System.out.println("---------------------- START-----------------------" );
+
 		System.out.println("Player Position At Start: "+ position );
                 startGame();
+		System.out.println("---------------------- END -----------------------" );
+
 	}
 }
