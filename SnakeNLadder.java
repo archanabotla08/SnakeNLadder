@@ -3,6 +3,11 @@ public class SnakeNLadder{
 	public static final int NOPLAY = 1;
         public static final int LADDER = 2;
         public static final int SNAKE = 3;
+	public static int COUNTER = 0;
+        public static int WININGTHROWS = 0;
+        public static int LOSINGTHROWS = 0;
+        public static int NOPLAYTHROWS = 0;
+
 	final static int WINPOINT = 100;
 
 	public static int position = 0;
@@ -13,7 +18,8 @@ public class SnakeNLadder{
                 int n = 0;
                 Random r = new Random();
                 n=r.nextInt(number);
-                return (n==0?1:n);
+        	COUNTER++;
+	        return (n==0?1:n);
         }
 	public static void startGame() {
                     do{
@@ -24,17 +30,20 @@ public class SnakeNLadder{
                         System.out.println("Random value : " + random);
                         switch (random) {
                         case NOPLAY:
-                                System.out.println("NOPLAY");
+                          	NOPLAYTHROWS++;
+			        System.out.println("NOPLAY");
                                 System.out.println("Position of player : " + calculatedPosition);
                                 System.out.println("----------------------");
                                 break;
                         case LADDER:
+				WININGTHROWS++;
                                 System.out.println("############## Climb the LADDER ############");
                                 calculatedPosition = calculatePlayerLadderPosition(calculatedPosition,rolldice);
                                 System.out.println("Position of the  Player = " + calculatedPosition);
                                 System.out.println("----------------------");
                                 break;
                         case SNAKE:
+				LOSINGTHROWS++;
                                 System.out.println("~~~~~~~~~~~~~~~~ Bites the SNAKE ~~~~~~~~~~~~");
                                 calculatedPosition = calculatePlayerSnakeBitePosition(calculatedPosition,rolldice);
                                 System.out.println("Position of the  Player = " + calculatedPosition);
@@ -70,6 +79,11 @@ public class SnakeNLadder{
 		System.out.println("Player Position At Start: "+ position );
                 startGame();
 		System.out.println("---------------------- END -----------------------" );
+
+		System.out.println("NOPLAY Rolls of Die: " + NOPLAYTHROWS);
+                System.out.println("Wining Rolls of Die: " + WININGTHROWS);
+                System.out.println("Losing Rolls of Die: " + LOSINGTHROWS);
+                System.out.println("Total Number of Die rolls : " + COUNTER);
 
 	}
 }
